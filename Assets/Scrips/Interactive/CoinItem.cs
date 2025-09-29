@@ -6,6 +6,7 @@ public class CoinItem : InteractableObject
 {
     [Header("동전 설정")]
     public int coinValue = 10;
+    public string questTag = "Coin";      //퀘스트 에서 사용할 태그
 
 
 
@@ -19,7 +20,15 @@ public class CoinItem : InteractableObject
 
     protected override void CollectItem()
     {
-        transform.Rotate(Vector3.up * 360f);
+        if(QuestManager.Instance != null)
+        {
+            QuestManager.Instance.AddCollectProgress(questTag);
+        }
+
+
+
+
+        transform.Rotate(Vector3.up * 180f);
         Destroy(gameObject, 0.5f);
     }
 }
